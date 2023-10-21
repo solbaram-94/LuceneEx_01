@@ -8,7 +8,7 @@ public class LuceneWriteIndexTest {
     @Test
     public void callMain() throws Exception {
         String[] args = null;
-        LuceneWriteIndex.main(args); // 에러
+        new LuceneWriteIndex(); // 에러
     }
 
 }

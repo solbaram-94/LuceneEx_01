@@ -18,7 +18,7 @@ public class LuceneWriteIndex
 {
 	private static final String INDEX_DIR = "c:/temp/ex1Index";
 
-	public static void main(String[] args) throws Exception 
+	public LuceneWriteIndex() throws Exception
 	{
 		IndexWriter writer = createWriter();
 		List<Document> documents = new ArrayList<>();
