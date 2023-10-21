@@ -19,7 +19,7 @@ public class LuceneReadIndex
 {
 	private static final String INDEX_DIR = "c:/temp/ex1Index";
 
-	public static void main(String[] args) throws Exception 
+	public LuceneReadIndex() throws Exception
 	{
 		IndexSearcher searcher = createSearcher();
 		
