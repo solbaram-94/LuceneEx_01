@@ -1,4 +1,4 @@
-package com.howtodoinjava.demo.lucene.Test1;
+package com.lucene.Test1;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;

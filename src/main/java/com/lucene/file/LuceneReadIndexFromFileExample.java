@@ -1,4 +1,4 @@
-package com.howtodoinjava.demo.lucene.file;
+package com.lucene.file;
 import java.io.IOException;
 import java.nio.file.Paths;
  

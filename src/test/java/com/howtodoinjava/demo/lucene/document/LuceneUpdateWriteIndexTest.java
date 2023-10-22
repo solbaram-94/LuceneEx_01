@@ -1,8 +1,7 @@
 package com.howtodoinjava.demo.lucene.document;
 
+import com.lucene.document.LuceneUpdateWriteIndex;
 import org.junit.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class LuceneUpdateWriteIndexTest {
     @Test

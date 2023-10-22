@@ -1,4 +1,4 @@
-package com.howtodoinjava.demo.lucene.highlight;
+package com.lucene.highlight;
 
 import java.nio.file.Paths;
 

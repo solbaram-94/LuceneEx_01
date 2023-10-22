@@ -1,4 +1,4 @@
-package com.howtodoinjava.demo.lucene.document;
+package com.lucene.document;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;

@@ -1,14 +1,13 @@
-package com.howtodoinjava.demo.lucene.Test1;
-
-
-import java.util.Arrays;
-import java.util.List;
+package com.lucene.document;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
 
-public class DocumentUtil {
+import java.util.Arrays;
+import java.util.List;
+
+public class DocumentUtilT1 {
 
     public static Document getDocument(String id, String title, String description, String blog) {
         Document doc = new Document();
