@@ -7,8 +7,7 @@ import com.howtodoinjava.demo.lucene.document.LuceneReadIndex;
 
 public class LuceneReadIndexTest {
     @Test
-    public void callMain() throws Exception {
-        String[] args = null;
+    public void callReadIndex() throws Exception {
         new LuceneReadIndex();
     }
 }

@@ -6,9 +6,9 @@ import org.junit.Test;
 
 public class LuceneWriteIndexTest {
     @Test
-    public void callMain() throws Exception {
-        String[] args = null;
-        new LuceneWriteIndex(); // 에러
+    public void callWrite() throws Exception {
+        LuceneWriteIndex luceneWriteIndex = new LuceneWriteIndex();
+        luceneWriteIndex.LuceneWriteIndexInit();
     }
 
 }
