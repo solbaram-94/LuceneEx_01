@@ -22,34 +22,56 @@ public class LuceneWriteIndex
 	public void LuceneWriteIndexInit() throws Exception
 	{
 		IndexWriter writer = createWriter();
-		List<Document> documents = new ArrayList<>();
-		
-		Document document1 = createDocument(1, "Lokesh", "Gupta", "howtodoinjava.com");
-		documents.add(document1);
-
-		Document document2 = createDocument(2, "Brian", "Schultz", "example.com");
-		documents.add(document2);
-
-		Document document3 = createDocument(3, "Brian", "Schultz3", "example.com3");
-		documents.add(document3);
-
-//		Term uTerm = new Term("1", document1);
 
 		//Let's clean everything first
 		writer.deleteAll();
+
+		List<Document> documents = new ArrayList<>();
+		
+		Document document1 = createDocument(1, "Lokesh", "Gupta", "howtodoinjava.com",
+				"a가 나1b다라마바사");
+		documents.add(document1);
+
+		Document document2 = createDocument(2, "Brian", "Schultz", "example.com1",
+				"1a가 나a다라마바사");
+		documents.add(document2);
+
+		Document document3 = createDocument(3, "Brian", "Schultz3", "example.com2",
+				"a가b나 나a다라마바사");
+		documents.add(document3);
+
+		Document document4 = createDocument(4, "Brian", "Schultz3", "example.com3",
+				"1a가b나 나a다라마바사");
+		documents.add(document4);
+
+		Document document5 = createDocument(5, "Brian", "Schultz3", "example.com3",
+				"1a가나 나a다라마바사");
+		documents.add(document5);
+
+		Document document6 = createDocument(6, "Brian", "Schultz3", "example.com3",
+				"a가나 나1a다라마바사");
+		documents.add(document6);
+
+		Document document7 = createDocument(7, "Brian", "Schultz3", "example.com3",
+				"a가나다 나a다라마바사");
+		documents.add(document7);
+
+//		Term uTerm = new Term("1", document1);
+
 		
 		writer.addDocuments(documents);
 		writer.commit();
 	    writer.close();
 	}
 
-	private static Document createDocument(Integer id, String firstName, String lastName, String website) 
+	private static Document createDocument(Integer id, String firstName, String lastName, String website, String description)
 	{
     	Document document = new Document();
     	document.add(new StringField("id", id.toString() , Field.Store.YES));
     	document.add(new TextField("firstName", firstName , Field.Store.YES));
     	document.add(new TextField("lastName", lastName , Field.Store.YES));
     	document.add(new TextField("website", website , Field.Store.YES));
+		document.add(new TextField("description", description , Field.Store.YES));
     	return document;
     }
 

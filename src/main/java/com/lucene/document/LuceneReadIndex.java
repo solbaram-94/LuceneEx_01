@@ -2,16 +2,15 @@ package com.lucene.document;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.regex.Pattern;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
@@ -19,33 +18,56 @@ public class LuceneReadIndex
 {
 	private static final String INDEX_DIR = "c:/temp/ex1Index";
 
-	public LuceneReadIndex() throws Exception
+	public LuceneReadIndex(String searchTp, String searchStr) throws Exception
 	{
 		IndexSearcher searcher = createSearcher();
 		
-		//Search by ID
-		TopDocs foundDocs = searchById(1, searcher);
-		
-		System.out.println("Toral Results :: " + foundDocs.totalHits);
-		
-		for (ScoreDoc sd : foundDocs.scoreDocs) 
+//		TopDocs foundDocs = searchByDescription(searcher, searchTp, searchStr);
+		TopDocs foundDocs = searchWildCard(searcher, searchTp, searchStr);
+		System.out.println("Total Results :: " + foundDocs.totalHits);
+		System.out.println("========================================");
+		for (ScoreDoc sd : foundDocs.scoreDocs)
 		{
 			Document d = searcher.doc(sd.doc);
-			System.out.println(String.format(d.get("firstName")));
+			System.out.printf((d.get("id")) + ", " + (d.get("description")) + "%n");
 		}
-		
-		//Search by firstName
-		TopDocs foundDocs2 = searchByFirstName("Brian", searcher);
-		
-		System.out.println("Toral Results :: " + foundDocs2.totalHits);
-		
-		for (ScoreDoc sd : foundDocs2.scoreDocs) 
-		{
-			Document d = searcher.doc(sd.doc);
-			System.out.println(String.format(d.get("website")));
-		}
+		System.out.println("========================================");
 	}
-	
+
+	private static TopDocs searchWildCard(IndexSearcher searcher, String searchTp, String searchStr) throws Exception {
+		Pattern pattern = Pattern.compile("\\s");
+		String[] wordArr = pattern.split(searchStr);
+
+		BooleanQuery.Builder builder = new BooleanQuery.Builder();
+		for (String s : wordArr) {
+
+//			TermQuery query = new TermQuery(new Term(searchTp, s));
+			// wildcard query
+//			Query query = new WildcardQuery(new Term(searchTp, "*"+s+"*"));
+			// prefix query
+			PrefixQuery query = new PrefixQuery(new Term(searchTp, s));
+			builder.add(query, BooleanClause.Occur.MUST);
+		}
+
+		// boolean query
+		BooleanQuery booleanQuery = builder.build();
+		return searcher.search(booleanQuery, 100);
+
+	}
+
+	private static TopDocs searchByDescription(IndexSearcher searcher, String searchTp, String searchStr) throws Exception
+	{
+		Pattern pattern = Pattern.compile("\\s");
+        String[] wordArr = pattern.split(searchStr);
+        BooleanQuery.Builder builder = new BooleanQuery.Builder();
+        for (String s : wordArr) {
+            TermQuery query = new TermQuery(new Term(searchTp, s));
+            builder.add(query, BooleanClause.Occur.MUST);
+        }
+		BooleanQuery booleanQuery = builder.build();
+		return searcher.search(booleanQuery, 100);
+	}
+
 	private static TopDocs searchByFirstName(String firstName, IndexSearcher searcher) throws Exception
 	{
 		QueryParser qp = new QueryParser("firstName", new StandardAnalyzer());
@@ -65,7 +87,6 @@ public class LuceneReadIndex
 	private static IndexSearcher createSearcher() throws IOException {
 		Directory dir = FSDirectory.open(Paths.get(INDEX_DIR));
 		IndexReader reader = DirectoryReader.open(dir);
-		IndexSearcher searcher = new IndexSearcher(reader);
-		return searcher;
+        return new IndexSearcher(reader);
 	}
 }

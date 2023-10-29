@@ -8,6 +8,6 @@ import com.lucene.document.LuceneReadIndex;
 public class LuceneReadIndexTest {
     @Test
     public void callReadIndex() throws Exception {
-        new LuceneReadIndex();
+        new LuceneReadIndex("description", "a가 나1");
     }
 }
