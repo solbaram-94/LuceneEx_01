@@ -9,5 +9,6 @@ public class LuceneReadIndexTest {
     @Test
     public void callReadIndex() throws Exception {
         new LuceneReadIndex("description", "a가 나1");
+        // print - 1
     }
 }
