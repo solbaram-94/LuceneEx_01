@@ -8,7 +8,7 @@ public class LuceneUpdateWriteIndexTest {
     public void callUpdateWrite() throws Exception {
         LuceneUpdateWriteIndex luceneUpdateWriteIndex = new LuceneUpdateWriteIndex();
         luceneUpdateWriteIndex.LuceneUpdateWriteIndexInit();
-        // C1
+        // E11
     }
 
 }
